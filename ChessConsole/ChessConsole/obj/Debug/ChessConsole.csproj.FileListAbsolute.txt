@@ -1,0 +1,6 @@
+C:\Users\Blake\Documents\GitHub\Chess\ChessConsole\ChessConsole\bin\Debug\ChessConsole.exe.config
+C:\Users\Blake\Documents\GitHub\Chess\ChessConsole\ChessConsole\bin\Debug\ChessConsole.exe
+C:\Users\Blake\Documents\GitHub\Chess\ChessConsole\ChessConsole\bin\Debug\ChessConsole.pdb
+C:\Users\Blake\Documents\GitHub\Chess\ChessConsole\ChessConsole\obj\Debug\ChessConsole.exe
+C:\Users\Blake\Documents\GitHub\Chess\ChessConsole\ChessConsole\obj\Debug\ChessConsole.pdb
+C:\Users\Blake\Documents\GitHub\Chess\ChessConsole\ChessConsole\obj\Debug\ChessConsole.csprojResolveAssemblyReference.cache

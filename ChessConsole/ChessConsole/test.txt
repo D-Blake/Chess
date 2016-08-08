@@ -1,0 +1,35 @@
+﻿Rla1
+Rlh1
+Nlb1
+Nlg1
+Blc1
+Blf1
+Qld1
+Kle1
+Pla2
+Plh2
+Plb2
+Plg2
+Plc2
+Plf2
+Pld2
+Ple2
+Rla8
+Rlh8
+Nlb8
+Nlg8
+Blc8
+Blf8
+Qld8
+Kle8
+Pla7
+Plh7
+Plb7
+Plg7
+Plc7
+Plf7
+Pld7
+Ple7
+d8 h4
+e1 g1 h1 f1
+d8 h4
