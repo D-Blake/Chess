@@ -5,25 +5,39 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
+using ChessConsole.Pieces;
 
 namespace ChessConsole
 {
     public class ReadFile
     {
-        char?[,] board = new char?[8,8];
+        char?[,] board = new char?[8, 8];
+        Piece[,] pieces = new Piece[8, 8];
         char piece;
+        string fileName;
         int x;
         int y;
+
+
+
+        public ReadFile(string s)
+        {
+            fileName = s;
+        }
 
         public char?[,] getCharArray()
         {
             return board;
         }
+        public Piece[,] getPiecesArray()
+        {
+            return pieces;
+        }
 
         public string DisplayLineMeaning()
         {
             string line;
-            System.IO.StreamReader file = new System.IO.StreamReader("test.txt");
+            System.IO.StreamReader file = new System.IO.StreamReader(fileName);
             string pattern1 = @"[A-Z][a-z][a-z][0-9]";
             string pattern2 = @"[a-z][0-9][\s][a-z][0-9][\s][a-z][0-9][\s][a-z][0-9]";
             string pattern3 = @"[a-z][0-9][\s][a-z][0-9]";
@@ -73,49 +87,115 @@ namespace ChessConsole
         {
             if (input.Length == 4)
             {
-                switch (input[1])
-                {
-                    case 'l':
-                        Console.Write("White ");
-                        break;
-                    case 'd':
-                        Console.Write("Black ");
-                        break;
-                    default:
-                        Console.Write("Kek");
-                        break;
-                }
                 switch (input[0])
                 {
                     case 'K':
                         Console.Write("King ");
-                        piece = 'K';
+                        King k = new King();
+                        if (input[1].Equals('l'))
+                        {
+                            k.Color = "white";
+                            piece = 'K';
+                        }
+                        else if (input[1].Equals('d'))
+                        {
+                            k.Color = "black";
+                            piece = 'k';
+                        }
+                        x = getXCoord(input[2]);
+                        y = getYCoord(input[3]);
+                        pieces[x, y] = k;
                         break;
                     case 'Q':
                         Console.Write("Queen ");
-                        piece = 'Q';
+                        Queen q = new Queen();
+                        if (input[1].Equals('l'))
+                        {
+                            q.Color = "white";
+                            piece = 'Q';
+                        }
+                        else if (input[1].Equals('d'))
+                        {
+                            q.Color = "black";
+                            piece = 'q';
+                        }
+                        x = getXCoord(input[2]);
+                        y = getYCoord(input[3]);
+                        pieces[x, y] = q;
                         break;
                     case 'B':
                         Console.Write("Bishop ");
-                        piece = 'B';
+                        Bishop b = new Bishop();
+                        if (input[1].Equals('l'))
+                        {
+                            b.Color = "white";
+                            piece = 'B';
+                        }
+                        else if (input[1].Equals('d'))
+                        {
+                            b.Color = "black";
+                            piece = 'b';
+                        }
+                        x = getXCoord(input[2]);
+                        y = getYCoord(input[3]);
+                        pieces[x, y] = b;
                         break;
                     case 'N':
                         Console.Write("Knight ");
-                        piece = 'N';
+                        Knight n = new Knight();
+                        if (input[1].Equals('l'))
+                        {
+                            n.Color = "white";
+                            piece = 'N';
+                        }
+                        else if (input[1].Equals('d'))
+                        {
+                            n.Color = "black";
+                            piece = 'n';
+                        }
+                        x = getXCoord(input[2]);
+                        y = getYCoord(input[3]);
+                        pieces[x, y] = n;
                         break;
                     case 'R':
                         Console.Write("Rook ");
-                        piece = 'R';
+                        Rook r = new Rook();
+                        if (input[1].Equals('l'))
+                        {
+                            r.Color = "white";
+                            piece = 'R';
+                        }
+                        else if (input[1].Equals('d'))
+                        {
+                            r.Color = "black";
+                            piece = 'r';
+                        }
+                        x = getXCoord(input[2]);
+                        y = getYCoord(input[3]);
+                        pieces[x, y] = r;
                         break;
                     case 'P':
                         Console.Write("Pawn ");
-                        piece = 'P';
+                        Pawn p = new Pawn();
+                        if (input[1].Equals('l'))
+                        {
+                            p.Color = "white";
+                            piece = 'P';
+                        }
+                        else if (input[1].Equals('d'))
+                        {
+                            p.Color = "black";
+                            piece = 'p';
+                        }
+                        x = getXCoord(input[2]);
+                        y = getYCoord(input[3]);
+                        pieces[x, y] = p;
                         break;
                     default:
                         Console.Write("Kek");
                         break;
                 }
-                Console.WriteLine("placed at " + input[2]+input[3]);
+                Console.WriteLine("placed at " + input[2] + input[3]);
                 PlaceInArray(input[2], input[3], piece);
             }
             else if (input.Length == 5 || input.Length == 6)
@@ -123,8 +203,9 @@ namespace ChessConsole
                 if (input.Length == 5)
                 {
                     Console.WriteLine("Moves the piece at " + input[0] + input[1] + " to " + input[3] + input[4]);
+
                 }
-                else if(input.Length == 6)
+                else if (input.Length == 6)
                 {
                     Console.WriteLine("Moves the piece at " + input[0] + input[1] + " to " + input[3] + input[4] + " and captures the piece at " + input[3] + input[4]);
                 }
@@ -135,44 +216,87 @@ namespace ChessConsole
                 Console.WriteLine(" and then moves the piece at " + input[6] + input[7] + " to " + input[9] + input[10]);
             }
         }
-        public void PlaceInArray(char letter, char number, char piece)
+        public int getXCoord(char letter)
         {
-            x = Int32.Parse((number.ToString()));
-            x = x - 1;
-            
-            if(letter.Equals('a'))
+            if (letter.Equals('a'))
             {
-                y = 0;
+                x = 0;
             }
             else if (letter.Equals('b'))
             {
-                y = 1;
+                x = 1;
             }
             else if (letter.Equals('c'))
             {
-                y = 2;
+                x = 2;
             }
             else if (letter.Equals('d'))
             {
-                y = 3;
+               x = 3;
             }
             else if (letter.Equals('e'))
             {
-                y = 4;
+                x = 4;
             }
             else if (letter.Equals('f'))
             {
-                y = 5;
+                x = 5;
             }
             else if (letter.Equals('g'))
             {
-                y = 6;
+                x = 6;
             }
             else if (letter.Equals('h'))
             {
+                x = 7;
+            }
+            return x;
+        }
+        public int getYCoord(char number)
+        {
+            y = Int32.Parse((number.ToString()));
+
+            if (y == 8)
+            {
+                y = 0;
+            }
+            else if (y == 7)
+            {
+                y = 1;
+            }
+            else if (y == 6)
+            {
+                y = 2;
+            }
+            else if (y == 5)
+            {
+                y = 3;
+            }
+            else if (y == 4)
+            {
+                y = 4;
+            }
+            else if (y == 3)
+            {
+                y = 5;
+            }
+            else if (y == 2)
+            {
+                y = 6;
+            }
+            else if (y == 1)
+            {
                 y = 7;
             }
-            board[y, x] = piece;
+            return y;
+        }
+        public void PlaceInArray(char letter, char number, char piece)
+        {
+            y = getYCoord(number);
+            x = getXCoord(letter);
+
+            
+            board[x, y] = piece;
         }
     }
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ChessConsole.Pieces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,10 +11,11 @@ namespace ChessConsole
     {
         static void Main(string[] args)
         {
-            ReadFile readF = new ReadFile();
+            ReadFile readF = new ReadFile(args[0]);
             readF.DisplayLineMeaning();
-            DisplayBoard display = new DisplayBoard(readF.getCharArray());
-            display.PrintBoard();
+            Board board = new Board(readF.getCharArray(), readF.getPiecesArray());
+            board.PrintBoard();
+            board.ReadMoves();
         }
     }
 }
